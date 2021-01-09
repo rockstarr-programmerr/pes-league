@@ -9,7 +9,7 @@ from django.shortcuts import reverse
 class Season(models.Model):
     name = models.CharField('tên', max_length=255, unique=True)
     slug = models.SlugField('slug', max_length=255, unique=True)
-    length = models.IntegerField('số vòng', default=38)
+    length = models.PositiveIntegerField('số vòng', default=38)
 
     class Meta:
         verbose_name = 'mùa giải'
@@ -51,8 +51,8 @@ class Team(models.Model):
 class Game(models.Model):
     home_team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='home_games', verbose_name='đội nhà')
     away_team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='away_games', verbose_name='đội khách')
-    home_team_score = models.IntegerField('bàn thắng đội nhà')
-    away_team_score = models.IntegerField('bàn thắng đội khách')
+    home_team_score = models.PositiveIntegerField('bàn thắng đội nhà')
+    away_team_score = models.PositiveIntegerField('bàn thắng đội khách')
     season = models.ForeignKey(Season, on_delete=models.CASCADE, related_name='games', verbose_name='mùa giải')
     time = models.DateTimeField('ngày giờ thi đấu', default=timezone.now)
 

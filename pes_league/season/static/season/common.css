@@ -76,12 +76,24 @@ ul li {
     text-align: right;
 }
 
+#messages-display ul {
+    margin-bottom: 4px;
+}
+
 .messages {
     padding: 7px 14px;
-    background-color: aqua;
     border-radius: 3px;
-    margin-bottom: 4px;
     margin-top: 14px;
+}
+
+.message-success {
+    background-color: aqua;
+}
+
+.message-error {
+    background-color: navajowhite;
+    color: red;
+    font-weight: 700;
 }
 
 .back-btn {
@@ -111,6 +123,10 @@ ul li {
     outline: 0;
 }
 
+.create-form select {
+    cursor: pointer;
+}
+
 .create-form th {
     font-weight: 400;
     min-width: 75px;
@@ -119,4 +135,14 @@ ul li {
 .create-form td,
 .create-form th {
     padding: 4px 0;
+}
+
+.errorlist {
+    margin-bottom: 7px;
+    color: red;
+    font-weight: 700;
+    background-color: navajowhite;
+    padding: 4px 7px;
+    border-radius: 1px;
+    box-sizing: border-box;
 }

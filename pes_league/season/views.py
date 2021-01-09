@@ -1,3 +1,5 @@
+import copy
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View, ListView, DetailView, CreateView
 from django.contrib import messages
@@ -42,19 +44,23 @@ class SeasonDetailView(View):
 
     def post(self, request, slug, *args, **kwargs):
         season = get_object_or_404(Season, slug=slug)
-        form = GameCreateForm(request.POST)
+
+        data = copy.deepcopy(request.POST)
+        data['season'] = season
+        form = GameCreateForm(data)
 
         if form.is_valid():
             form.save()
             messages.success(request, 'Lưu thành công.')
             return redirect('season:season_detail', slug)
 
-        context = {
-            'season': season,
-            'form': form,
-        }
-
-        return render(request, 'season/season_detail.html', context)
+        else:
+            messages.error(request, 'Lưu thất bại, hãy kiểm tra lại form!')
+            context = {
+                'season': season,
+                'form': form,
+            }
+            return render(request, 'season/season_detail.html', context)
 
 
 class TeamListView(ListView):
