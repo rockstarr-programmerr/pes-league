@@ -62,6 +62,6 @@ def get_standings(games, season):
         standing.gf,
         -standing.ga,
     )
-    standings.sort(key=ordering_rule)
+    standings.sort(key=ordering_rule, reverse=True)
 
     return standings
