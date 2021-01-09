@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mùa giải</title>
+</head>
+<body>
+    <section>
+        <h1>Danh sách mùa giải</h1>
+    </section>
+    <section>
+        <ul>
+            {% for season in seasons %}
+            <li>
+                <a href="#">{{ season.name }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+</body>
+</html>
