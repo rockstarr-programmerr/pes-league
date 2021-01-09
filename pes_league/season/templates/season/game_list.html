@@ -6,10 +6,10 @@
     <h1>Tất cả trận đấu</h1>
 </section>
 <section>
-    {% include 'common/game_results.html' with games=games display_time=True %}
+    {% include 'common/back_btn.html' %}
+    <hr>
 </section>
 <section>
-    <hr>
-    {% include 'common/back_btn.html' %}
+    {% include 'common/game_results.html' with games=games display_time=True %}
 </section>
 {% endblock %}
