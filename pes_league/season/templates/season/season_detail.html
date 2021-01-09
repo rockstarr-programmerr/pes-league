@@ -7,13 +7,25 @@
     <p>Số vòng: {{ season.length }}</p>
 </section>
 <section>
-    <!-- Bảng xếp hạng -->
+    <h2>Bảng xếp hạng</h2>
 </section>
 <section>
-    <!-- Các trận gần đây -->
+    <h2>5 trận gần nhất</h2>
+    <a href="#">Xem tất cả</a>
 </section>
 <section>
     <hr>
-    <a class="button" href="{% url 'season:season_list' %}">Quay lại</a>
+    <h2>Kết quả thi đấu</h2>
+    <form method="post">
+        {% csrf_token %}
+        <table class="create-form">
+            {{ form.as_table }}
+        </table>
+        <input class="button" type="submit" value="Lưu">
+    </form>
+</section>
+<section>
+    <hr>
+    <a style="font-size: 20px;" href="{% url 'season:season_list' %}">&larr;</a>
 </section>
 {% endblock %}

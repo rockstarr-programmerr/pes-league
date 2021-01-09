@@ -10,6 +10,24 @@
     {% block css %}{% endblock %}
 </head>
 <body class="align-center">
+    {% block messages %}
+    {% if messages %}
+    <section id="messages-display">
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="message-{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+    <script>
+        var element = document.getElementById('messages-display')
+        setTimeout(function () {
+            element.remove()
+        }, 3000)
+    </script>
+    {% endif %}
+    {% endblock %}
+
     {% block logo %}
     <div>
         <a href="{% url 'home' %}">

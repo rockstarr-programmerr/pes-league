@@ -7,12 +7,16 @@ from django.shortcuts import reverse
 
 
 class Season(models.Model):
-    name = models.CharField('Tên', max_length=255, unique=True)
+    name = models.CharField('tên', max_length=255, unique=True)
     slug = models.SlugField('slug', max_length=255, unique=True)
-    length = models.IntegerField('Số vòng', default=38)
+    length = models.IntegerField('số vòng', default=38)
+
+    class Meta:
+        verbose_name = 'mùa giải'
+        verbose_name_plural = 'mùa giải'
 
     def __str__(self):
-        return f'{self.id} - {self.name}'
+        return f'{self.name}'
 
     def get_absolute_url(self):
         return reverse('season:season_detail', args=(self.slug, ))
@@ -24,12 +28,16 @@ class Season(models.Model):
 
 
 class Team(models.Model):
-    name = models.CharField('Tên', max_length=255, unique=True)
+    name = models.CharField('tên', max_length=255, unique=True)
     slug = models.SlugField('slug', max_length=255, unique=True)
-    manager = models.CharField('Huấn luyện viên', max_length=255)
+    manager = models.CharField('huấn luyện viên', max_length=255)
+
+    class Meta:
+        verbose_name = 'đội bóng'
+        verbose_name_plural = 'đội bóng'
 
     def __str__(self):
-        return f'{self.id} - {self.name}'
+        return f'{self.name}'
 
     def get_absolute_url(self):
         return reverse('season:team_detail', args=(self.slug, ))
@@ -41,9 +49,16 @@ class Team(models.Model):
 
 
 class Game(models.Model):
-    home_team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='home_games', verbose_name='Đội nhà')
-    away_team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='away_games', verbose_name='Đội khách')
-    home_team_score = models.IntegerField('Số bàn đội nhà')
-    away_team_score = models.IntegerField('Số bàn đội khách')
-    season = models.ForeignKey(Season, on_delete=models.CASCADE, verbose_name='Mùa giải')
-    date = models.DateField('Ngày thi đấu', default=timezone.now)
+    home_team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='home_games', verbose_name='đội nhà')
+    away_team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='away_games', verbose_name='đội khách')
+    home_team_score = models.IntegerField('bàn thắng đội nhà')
+    away_team_score = models.IntegerField('bàn thắng đội khách')
+    season = models.ForeignKey(Season, on_delete=models.CASCADE, verbose_name='mùa giải')
+    date = models.DateField('ngày thi đấu', default=timezone.now)
+
+    class Meta:
+        verbose_name = 'trận đấu'
+        verbose_name_plural = 'trận đấu'
+
+    def __str__(self):
+        return f'{self.date}: {self.home_team} {self.home_team_score} - {self.away_team_score} {self.away_team}'
