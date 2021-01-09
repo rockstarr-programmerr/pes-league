@@ -1,3 +1,10 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Season
+
+
+class SeasonAdmin(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(Season, SeasonAdmin)

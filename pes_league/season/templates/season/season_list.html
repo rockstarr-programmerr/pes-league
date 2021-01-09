@@ -1,22 +1,33 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mùa giải</title>
+    <link rel="stylesheet" href="{% static 'season/common.css' %}">
+    <link rel="stylesheet" href="{% static 'season/season_list.css' %}">
 </head>
-<body>
+<body class="align-center">
     <section>
         <h1>Danh sách mùa giải</h1>
     </section>
     <section>
-        <ul>
-            {% for season in seasons %}
-            <li>
-                <a href="#">{{ season.name }}</a>
-            </li>
-            {% endfor %}
-        </ul>
+        <div class="season-list">
+            <ul>
+                {% for season in seasons %}
+                <li>
+                    <a href="{{ season.get_absolute_url }}">{{ season.name }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+    <section>
+        <div>
+            <a class="button" href="{% url 'season:season_create' %}">Thêm mùa giải</a>
+        </div>
     </section>
 </body>
 </html>

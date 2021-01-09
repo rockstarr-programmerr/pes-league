@@ -1,0 +1,15 @@
+.season-list {
+    width: 400px;
+    margin: 0 auto;
+    font-size: 14px;
+    margin-bottom: 27px;
+}
+
+.season-list ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.season-list ul li {
+    margin-bottom: 3px;
+}
