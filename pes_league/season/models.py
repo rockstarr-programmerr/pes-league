@@ -1,19 +1,26 @@
 from django.db import models
 from django.utils import timezone
+from django.utils.text import slugify
 from django.shortcuts import reverse
 
 # Create your models here.
 
 
 class Season(models.Model):
-    name = models.CharField('Tên', max_length=255)
+    name = models.CharField('Tên', max_length=255, unique=True)
+    slug = models.SlugField('slug', max_length=255, unique=True)
     length = models.IntegerField('Số vòng', default=38)
 
     def __str__(self):
         return f'{self.id} - {self.name}'
 
     def get_absolute_url(self):
-        return reverse('season:season_detail', args=(self.pk, ))
+        return reverse('season:season_detail', args=(self.slug, ))
+
+    def save(self, *args, **kwargs):
+        cleaned_name = self.name.lower().replace('đ', 'd')
+        self.slug = slugify(cleaned_name)
+        return super().save(*args, **kwargs)
 
 
 class Team(models.Model):

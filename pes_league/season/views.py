@@ -11,12 +11,12 @@ class SeasonListView(ListView):
 
 class SeasonCreateView(CreateView):
     model = Season
-    fields = '__all__'
+    fields = ['name', 'length']
 
 
 class SeasonDetailView(View):
-    def get(self, request, pk, *args, **kwargs):
-        season = get_object_or_404(Season, pk=pk)
+    def get(self, request, slug, *args, **kwargs):
+        season = get_object_or_404(Season, slug=slug)
         context = {
             'season': season,
         }

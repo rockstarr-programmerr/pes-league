@@ -1,0 +1,25 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}PES league{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'season/common.css' %}">
+    {% block css %}{% endblock %}
+</head>
+<body class="align-center">
+    {% block logo %}
+    <div>
+        <a href="{% url 'season:season_list' %}">
+            <img src="{% static 'season/peslogo.png' %}" alt="peslogo" class="peslogo">
+        </a>
+    </div>
+    {% endblock %}
+
+    {% block body %}{% endblock %}
+
+    {% block js %}{% endblock %}
+</body>
+</html>

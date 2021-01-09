@@ -24,6 +24,12 @@ hr {
     margin: 27px auto;
 }
 
+.peslogo {
+    width: 50px;
+    margin-top: 14px;
+    cursor: pointer;
+}
+
 .button {
     background-color: bisque;
     text-decoration: none;
