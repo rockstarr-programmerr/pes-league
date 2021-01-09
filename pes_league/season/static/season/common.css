@@ -24,6 +24,19 @@ hr {
     margin: 27px auto;
 }
 
+ul {
+    width: 400px;
+    margin: 0 auto;
+    font-size: 14px;
+    margin-bottom: 27px;
+    list-style: none;
+    padding-left: 0;
+}
+
+ul li {
+    margin-bottom: 3px;
+}
+
 .peslogo {
     width: 50px;
     margin-top: 14px;

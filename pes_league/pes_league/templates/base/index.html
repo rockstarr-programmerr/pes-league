@@ -1,0 +1,17 @@
+{% extends 'base/base.html' %}
+
+{% block body %}
+<section>
+    <h1>Gisoft PES league</h1>
+</section>
+<section>
+    <ul>
+        <li>
+            <a href="{% url 'season:season_list' %}">Mùa giải</a>
+        </li>
+        <li>
+            <a href="#">Đội bóng</a>
+        </li>
+    </ul>
+</section>
+{% endblock %}

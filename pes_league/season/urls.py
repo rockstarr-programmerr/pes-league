@@ -5,7 +5,7 @@ from . import views
 app_name = 'season'
 
 urlpatterns = [
-    path('mua-giai/', views.SeasonListView.as_view(), name='season_list'),
-    path('mua-giai/create/', views.SeasonCreateView.as_view(), name='season_create'),
-    path('mua-giai/<slug:slug>/', views.SeasonDetailView.as_view(), name='season_detail'),
+    path('', views.SeasonListView.as_view(), name='season_list'),
+    path('bat-dau/', views.SeasonCreateView.as_view(), name='season_create'),
+    path('<slug:slug>/', views.SeasonDetailView.as_view(), name='season_detail'),
 ]
