@@ -124,6 +124,7 @@ DATETIME_FORMAT = 'd/m/Y H:i'
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [
     BASE_DIR / 'pes_league' / 'static',
 ]
