@@ -11,33 +11,31 @@
 </head>
 <body class="align-center">
     {% block messages %}
-    {% if messages %}
-    <section id="messages-display">
-        <ul>
-            {% for message in messages %}
-            <li{% if message.tags %} class="messages message-{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    </section>
-    <script>
-        var element = document.getElementById('messages-display')
-        setTimeout(function () {
-            element.remove()
-        }, 3000)
-    </script>
-    {% endif %}
+        {% if messages %}
+        <section id="messages-display">
+            <ul>
+                {% for message in messages %}
+                <li{% if message.tags %} class="messages message-{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </section>
+        {% endif %}
     {% endblock %}
 
     {% block logo %}
-    <div>
-        <a href="{% url 'home' %}">
-            <img src="{% static 'season/peslogo.png' %}" alt="peslogo" class="peslogo">
-        </a>
-    </div>
+        <div>
+            <a href="{% url 'home' %}">
+                <img src="{% static 'season/peslogo.png' %}" alt="peslogo" class="peslogo">
+            </a>
+        </div>
     {% endblock %}
 
     {% block body %}{% endblock %}
 
-    {% block js %}{% endblock %}
+    {% block js %}
+        {% if messages %}
+        <script src="{% static 'common/messages.js' %}"></script>
+        {% endif %}
+    {% endblock %}
 </body>
 </html>

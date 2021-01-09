@@ -1,6 +1,10 @@
 {% extends 'base/base.html' %}
 {% load static %}
 
+{% block css %}
+<link rel="stylesheet" href="{% static 'common/game_results.css' %}">
+{% endblock %}
+
 {% block body %}
 <section>
     <h1>Tất cả trận đấu</h1>
