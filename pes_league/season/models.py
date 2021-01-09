@@ -24,8 +24,20 @@ class Season(models.Model):
 
 
 class Team(models.Model):
-    name = models.CharField('Tên', max_length=255)
+    name = models.CharField('Tên', max_length=255, unique=True)
+    slug = models.SlugField('slug', max_length=255, unique=True)
     manager = models.CharField('Huấn luyện viên', max_length=255)
+
+    def __str__(self):
+        return f'{self.id} - {self.name}'
+
+    def get_absolute_url(self):
+        return reverse('season:team_detail', args=(self.slug, ))
+
+    def save(self, *args, **kwargs):
+        cleaned_name = self.name.lower().replace('đ', 'd')
+        self.slug = slugify(cleaned_name)
+        return super().save(*args, **kwargs)
 
 
 class Game(models.Model):

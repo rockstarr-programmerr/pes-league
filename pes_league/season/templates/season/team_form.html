@@ -1,0 +1,18 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block body %}
+<section>
+    <h1>Đội bóng mới</h1>
+</section>
+<section>
+    <form method="post">
+        {% csrf_token %}
+        <table class="create-form">
+            {{ form.as_table }}
+        </table>
+        <input class="button" type="submit" value="Thêm">
+        <a style="margin-left: 14px" href="{% url 'season:team_list' %}"></a>
+    </form>
+</section>
+{% endblock %}

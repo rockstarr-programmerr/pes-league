@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import View, ListView, CreateView, UpdateView
+from django.views.generic import View, ListView, DetailView, CreateView, UpdateView
 
 from .models import Season, Team, Game
 
@@ -21,3 +21,17 @@ class SeasonDetailView(View):
             'season': season,
         }
         return render(request, 'season/season_detail.html', context)
+
+
+class TeamListView(ListView):
+    model = Team
+    context_object_name = 'teams'
+
+
+class TeamCreateView(CreateView):
+    model = Team
+    fields = ['name', 'manager']
+
+
+class TeamDetailView(DetailView):
+    model = Team

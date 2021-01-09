@@ -3,14 +3,14 @@
 
 {% block body %}
 <section>
-    <h1>Danh sách mùa giải</h1>
+    <h1>Danh sách đội bóng</h1>
 </section>
 <section>
     <div>
         <ul>
-            {% for season in seasons %}
+            {% for team in teams %}
             <li>
-                <a href="{{ season.get_absolute_url }}">{{ season.name }}</a>
+                <a href="{{ team.get_absolute_url }}">{{ team.name }}</a>
             </li>
             {% endfor %}
         </ul>
@@ -18,7 +18,7 @@
 </section>
 <section>
     <div>
-        <a class="button" href="{% url 'season:season_create' %}">Thêm mùa giải</a>
+        <a class="button" href="{% url 'season:team_create' %}">Thêm đội bóng</a>
     </div>
 </section>
 {% endblock %}

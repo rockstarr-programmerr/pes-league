@@ -1,0 +1,13 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block body %}
+<section>
+    <h1>{{ team.name }}</h1>
+    <p>Huấn luyện viên: <strong>{{ team.manager }}</strong></p>
+</section>
+<section>
+    <hr>
+    <a class="button" href="{% url 'season:team_list' %}">Quay lại</a>
+</section>
+{% endblock %}
