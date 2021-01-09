@@ -1,0 +1,84 @@
+<style>
+.standing-table {
+    table-layout: fixed;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+.standing-table th,
+.standing-table td {
+    border: 1px solid brown;
+    padding: 4px 7px;
+}
+
+.gg-crown {
+    box-sizing: border-box;
+    position: relative;
+    display: inline-block;
+    transform: scale(var(--ggs,1));
+    width: 19px;
+    height: 12px;
+    border: 2px solid;
+    border-top-color: transparent;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    padding-top: 4px;
+    color: brown;
+}
+.gg-crown::after,
+.gg-crown::before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    box-sizing: border-box;
+    width: 8px;
+    height: 8px;
+    border-bottom: 2px solid;
+    border-left: 2px solid;
+    transform: rotate(-45deg);
+    top: -4px;
+    color: brown;
+}
+.gg-crown::before {
+    border-top-left-radius: 2px;
+    left: -1px
+}
+.gg-crown::after {
+    border-bottom-right-radius: 2px;
+    right: -1px
+}
+</style>
+
+<div class="standing-table-container">
+    <table class="standing-table">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Đội</th>
+                <th>Số trận</th>
+                <th>Điểm</th>
+                <th>Bàn thắng</th>
+                <th>Bàn thua</th>
+                <th>Hiệu số</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for standing in standings %}
+            <tr>
+                <td class="align-center">{{ forloop.counter }}</td>
+                <td class="align-left">
+                    <span>{{ standing.team.name }}</span>
+                    {% if forloop.counter == 1 %}
+                    <span><i class="gg-crown"></i></span>
+                    {% endif %}
+                </td>
+                <td class="align-right">{{ standing.games_played }}</td>
+                <td class="align-right">{{ standing.points }}</td>
+                <td class="align-right">{{ standing.gf }}</td>
+                <td class="align-right">{{ standing.ga }}</td>
+                <td class="align-right">{{ standing.gd }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

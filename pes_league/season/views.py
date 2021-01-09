@@ -4,6 +4,7 @@ from django.contrib import messages
 
 from .models import Season, Team, Game
 from .forms import GameCreateForm
+from .logic import get_standings
 
 
 class SeasonListView(ListView):
@@ -19,15 +20,20 @@ class SeasonCreateView(CreateView):
 class SeasonDetailView(View):
     def get(self, request, slug, *args, **kwargs):
         season = get_object_or_404(Season, slug=slug)
+        all_games = season.games.all().select_related('home_team', 'away_team')
+
+        # Bảng xếp hạng
+        standings = get_standings(all_games, season)
 
         # 5 trận gần nhất
-        games = season.games.all()[:5]
+        games = all_games[:5]
 
         # Form tạo trận đấu
         form = GameCreateForm()
 
         context = {
             'season': season,
+            'standings': standings,
             'games': games,
             'form': form,
         }
