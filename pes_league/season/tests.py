@@ -138,7 +138,7 @@ class StandingTableTwoTeamsTestCase(TestCase):
         self.assertEqual(away_standing.ga, 15)
         self.assertEqual(away_standing.gd, -3)
 
-    def test_xep_hang_khac_diem_doi_nha_hon(self):
+    def test_xep_hang_khac_diem_doi_nha_thang(self):
         standings = get_standings([
             self._create_game(1, 0),
             self._create_game(4, 0),
@@ -149,10 +149,11 @@ class StandingTableTwoTeamsTestCase(TestCase):
         first_place = standings[0]
         second_place = standings[1]
 
+        self.assertNotEqual(first_place.points, second_place.points)
         self.assertEqual(first_place.team.name, self._home_team.name)
         self.assertEqual(second_place.team.name, self._away_team.name)
 
-    def test_xep_hang_khac_diem_doi_khach_hon(self):
+    def test_xep_hang_khac_diem_doi_khach_thang(self):
         standings = get_standings([
             self._create_game(1, 0),
             self._create_game(4, 5),
@@ -163,5 +164,46 @@ class StandingTableTwoTeamsTestCase(TestCase):
         first_place = standings[0]
         second_place = standings[1]
 
+        self.assertNotEqual(first_place.points, second_place.points)
         self.assertEqual(first_place.team.name, self._away_team.name)
         self.assertEqual(second_place.team.name, self._home_team.name)
+
+    def test_xep_hang_bang_diem_khac_hieu_so_doi_nha_thang(self):
+        standings = get_standings([
+            self._create_game(3, 0),
+            self._create_game(4, 2),
+            self._create_game(0, 1),
+            self._create_game(0, 2),
+        ], self._season)
+
+        first_place = standings[0]
+        second_place = standings[1]
+
+        self.assertEqual(first_place.points, second_place.points)
+        self.assertNotEqual(first_place.gd, second_place.gd)
+        self.assertEqual(first_place.team.name, self._home_team.name)
+        self.assertEqual(second_place.team.name, self._away_team.name)
+
+    def test_xep_hang_bang_diem_khac_hieu_so_doi_khach_thang(self):
+        standings = get_standings([
+            self._create_game(1, 0),
+            self._create_game(1, 0),
+            self._create_game(2, 2),
+            self._create_game(2, 1),
+            self._create_game(2, 3),
+            self._create_game(0, 3),
+            self._create_game(2, 5),
+        ], self._season)
+
+        first_place = standings[0]
+        second_place = standings[1]
+
+        self.assertEqual(first_place.points, second_place.points)
+        self.assertNotEqual(first_place.gd, second_place.gd)
+        self.assertEqual(first_place.team.name, self._away_team.name)
+        self.assertEqual(second_place.team.name, self._home_team.name)
+
+    # Không test được trường hợp bằng điểm, bằng hiệu số, khác bàn thắng, khác bàn thua
+    # khi chỉ có 2 team đá với nhau
+    # Vì khi đó bàn thắng của team này là bàn thua của team kia
+    # 2 team bằng hiệu số chỉ khi cả 2 ghi bàn bằng nhau và hiệu số bằng đúng 0
