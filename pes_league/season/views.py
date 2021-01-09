@@ -19,10 +19,16 @@ class SeasonCreateView(CreateView):
 class SeasonDetailView(View):
     def get(self, request, slug, *args, **kwargs):
         season = get_object_or_404(Season, slug=slug)
+
+        # 5 trận gần nhất
+        games = season.games.all()[:5]
+
+        # Form tạo trận đấu
         form = GameCreateForm()
 
         context = {
             'season': season,
+            'games': games,
             'form': form,
         }
 
@@ -59,9 +65,10 @@ class TeamDetailView(DetailView):
     model = Team
 
 
-class GameCreateView(View):
-    def post(self, request, *args, **kwargs):
-        form = GameCreateForm(request.POST)
-        if form.is_valid():
-            form.save()
-        return redirect('season:season_detail', args=('', ))
+class GameListView(ListView):
+    model = Game
+    context_object_name = 'games'
+
+
+class GameDetailView(DetailView):
+    model = Game

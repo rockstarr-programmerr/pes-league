@@ -112,9 +112,12 @@ TIME_ZONE = 'Asia/Ho_Chi_Minh'
 
 USE_I18N = True
 
-USE_L10N = True
+USE_L10N = False
 
 USE_TZ = True
+
+DATET_FORMAT = 'Y/m/d'
+DATETIME_FORMAT = 'Y/m/d H:i'
 
 
 # Static files (CSS, JavaScript, Images)

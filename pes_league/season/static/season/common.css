@@ -71,12 +71,21 @@ ul li {
     text-align: left;
 }
 
+.align-right {
+    text-align: right;
+}
+
 .messages {
     padding: 7px 14px;
     background-color: aqua;
     border-radius: 3px;
     margin-bottom: 4px;
     margin-top: 14px;
+}
+
+.back-btn {
+    font-size: 20px;
+    cursor: pointer;
 }
 
 .create-form {

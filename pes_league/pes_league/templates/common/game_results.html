@@ -1,0 +1,46 @@
+<style>
+.game-result-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+.game-result-team {
+    flex-basis: 33%;
+}
+
+.game-result-score {
+    flex-basis: 33%;
+}
+
+.game-time {
+    padding: 7px 0;
+    font-size: 12px;
+    font-style: italic;
+}
+</style>
+
+<ul>
+    {% for game in games %}
+    <li>
+        <a href="{{ game.get_absolute_url }}">
+            <div class="game-result-container">
+                <div class="game-result-team align-left">
+                    <span>{{ game.home_team }}</span>
+                </div>
+                <div class="game-result-score">
+                    <span>{{ game.home_team_score }} - {{ game.away_team_score }}</span>
+                </div>
+                <div class="game-result-team align-right">
+                    <span>{{ game.away_team }}</span>
+                </div>
+            </div>
+        </a>
+        {% if display_time %}
+        <div class="game-time">
+            <span>{{ game.time }}</span>
+        </div>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>

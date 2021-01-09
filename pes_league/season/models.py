@@ -53,12 +53,16 @@ class Game(models.Model):
     away_team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='away_games', verbose_name='đội khách')
     home_team_score = models.IntegerField('bàn thắng đội nhà')
     away_team_score = models.IntegerField('bàn thắng đội khách')
-    season = models.ForeignKey(Season, on_delete=models.CASCADE, verbose_name='mùa giải')
-    date = models.DateField('ngày thi đấu', default=timezone.now)
+    season = models.ForeignKey(Season, on_delete=models.CASCADE, related_name='games', verbose_name='mùa giải')
+    time = models.DateTimeField('ngày giờ thi đấu', default=timezone.now)
 
     class Meta:
         verbose_name = 'trận đấu'
         verbose_name_plural = 'trận đấu'
+        ordering = ['-time']
 
     def __str__(self):
-        return f'{self.date}: {self.home_team} {self.home_team_score} - {self.away_team_score} {self.away_team}'
+        return f'{self.time.date()}: {self.home_team} {self.home_team_score} - {self.away_team_score} {self.away_team}'
+
+    def get_absolute_url(self):
+        return reverse('season:game_detail', args=(self.pk, ))

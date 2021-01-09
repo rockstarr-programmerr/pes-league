@@ -6,4 +6,4 @@ from .models import Game
 class GameCreateForm(forms.ModelForm):
     class Meta:
         model = Game
-        exclude = ['date']
+        exclude = ['time']

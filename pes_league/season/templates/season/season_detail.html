@@ -11,7 +11,8 @@
 </section>
 <section>
     <h2>5 trận gần nhất</h2>
-    <a href="#">Xem tất cả</a>
+    {% include 'common/game_results.html' with games=games %}
+    <a href="{% url 'season:game_list' %}">Xem tất cả</a>
 </section>
 <section>
     <hr>
@@ -26,6 +27,6 @@
 </section>
 <section>
     <hr>
-    <a style="font-size: 20px;" href="{% url 'season:season_list' %}">&larr;</a>
+    {% include 'common/back_btn.html' %}
 </section>
 {% endblock %}

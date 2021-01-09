@@ -11,4 +11,6 @@ urlpatterns = [
     path('doi-bong/', views.TeamListView.as_view(), name='team_list'),
     path('doi-bong/them-doi-bong/', views.TeamCreateView.as_view(), name='team_create'),
     path('doi-bong/<slug:slug>/', views.TeamDetailView.as_view(), name='team_detail'),
+    path('tran-dau/', views.GameListView.as_view(), name='game_list'),
+    path('tran-dau/<int:pk>/', views.GameDetailView.as_view(), name='game_detail'),
 ]

@@ -1,0 +1,20 @@
+.game-result-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    width: 400px;
+    margin: 0 auto;
+}
+
+.game-result-team {
+    flex-basis: 33%;
+}
+
+.game-result-score {
+    flex-basis: 33%;
+}
+
+.score {
+    font-size: 20px;
+    text-shadow: 0 0 1px;
+}
