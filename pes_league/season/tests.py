@@ -6,7 +6,7 @@ from .logic import get_standings
 
 class StandingTableTwoTeamsTestCase(TestCase):
     def setUp(self):
-        self._season = Season.objects.create(name='2020-2021')
+        self._season = Season.objects.create(name='2020-2021', length=38)
         self._home_team = Team.objects.create(name='FC gắp bóng', manager='Trung')
         self._away_team = Team.objects.create(name='FC xoạc', manager='Thành LV')
 
@@ -277,3 +277,69 @@ class StandingTableThreeTeamsTestCase(TestCase):
         self.assertEqual(second_place.team.name, self._team_1.name)
         self.assertEqual(third_place.team.name, self._team_4.name)
         self.assertEqual(forth_place.team.name, self._team_3.name)
+
+    def test_da_qua_so_tran_cua_mua_giai(self):
+        games = []
+
+        # Đội 1 và 2 đá đủ 38 trận
+        for i in range(38):
+            game = self._create_game(self._team_1, self._team_2, 1, 1)
+            games.append(game)
+
+        # Đội 3 và 4 mới đá 37 trận
+        for i in range(37):
+            game = self._create_game(self._team_3, self._team_4, 2, 2)
+            games.append(game)
+
+        # Assert
+        standings = get_standings(games, self._season)
+
+        standing_team_1 = None
+        standing_team_2 = None
+        standing_team_3 = None
+        standing_team_4 = None
+
+        for standing in standings:
+            if standing.team.pk == self._team_1.pk:
+                standing_team_1 = standing
+            elif standing.team.pk == self._team_2.pk:
+                standing_team_2 = standing
+            elif standing.team.pk == self._team_3.pk:
+                standing_team_3 = standing
+            elif standing.team.pk == self._team_4.pk:
+                standing_team_4 = standing
+
+        self.assertEqual(standing_team_1.points, 38)
+        self.assertEqual(standing_team_2.points, 38)
+        self.assertEqual(standing_team_3.points, 37)
+        self.assertEqual(standing_team_4.points, 37)
+
+        # Đội 1 vs đội 4 => Chỉ đội 4 được tính điểm
+        game = self._create_game(self._team_1, self._team_4, 1, 1)
+        games.append(game)
+        # Đội 2 vs đội 3 => Chỉ đội 3 được tính điểm
+        game = self._create_game(self._team_2, self._team_3, 0, 0)
+        games.append(game)
+
+        # Assert
+        standings = get_standings(games, self._season)
+
+        standing_team_1 = None
+        standing_team_2 = None
+        standing_team_3 = None
+        standing_team_4 = None
+
+        for standing in standings:
+            if standing.team.pk == self._team_1.pk:
+                standing_team_1 = standing
+            elif standing.team.pk == self._team_2.pk:
+                standing_team_2 = standing
+            elif standing.team.pk == self._team_3.pk:
+                standing_team_3 = standing
+            elif standing.team.pk == self._team_4.pk:
+                standing_team_4 = standing
+
+        self.assertEqual(standing_team_1.points, 38)
+        self.assertEqual(standing_team_2.points, 38)
+        self.assertEqual(standing_team_3.points, 38)
+        self.assertEqual(standing_team_4.points, 38)

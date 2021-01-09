@@ -20,6 +20,12 @@ def get_standings(games, season):
         for team in teams
     }
 
+    # Theo mặc định, "games" được sắp xếp theo thứ tự trận đấu gần đây nhất lên trước
+    # nhưng ở đây cần sắp xếp ngược lại
+    # để xử lý logic: Nếu 1 đội bóng đá nhiều hơn số trận tối đa của 1 mùa giải
+    # thì những trận từ đó trở đi sẽ không được tính điểm nữa
+    games = list(reversed(games))  # Tạo list mới chứ không được mutate list cũ
+
     for game in games:
         home_team = game.home_team
         away_team = game.away_team
@@ -30,29 +36,31 @@ def get_standings(games, season):
 
         # For home team
         home_team_standing = standings[home_team.pk]
-        home_team_standing.games_played += 1
-        if draw:
-            point = 1
-        elif home_team_won:
-            point = 3
-        else:
-            point = 0
-        home_team_standing.points += point
-        home_team_standing.gf += game.home_team_score
-        home_team_standing.ga += game.away_team_score
+        if home_team_standing.games_played < season.length:
+            home_team_standing.games_played += 1
+            if draw:
+                point = 1
+            elif home_team_won:
+                point = 3
+            else:
+                point = 0
+            home_team_standing.points += point
+            home_team_standing.gf += game.home_team_score
+            home_team_standing.ga += game.away_team_score
 
         # For away team
         away_team_standing = standings[away_team.pk]
-        away_team_standing.games_played += 1
-        if draw:
-            point = 1
-        elif away_team_won:
-            point = 3
-        else:
-            point = 0
-        away_team_standing.points += point
-        away_team_standing.gf += game.away_team_score
-        away_team_standing.ga += game.home_team_score
+        if away_team_standing.games_played < season.length:
+            away_team_standing.games_played += 1
+            if draw:
+                point = 1
+            elif away_team_won:
+                point = 3
+            else:
+                point = 0
+            away_team_standing.points += point
+            away_team_standing.gf += game.away_team_score
+            away_team_standing.ga += game.home_team_score
 
     standings = list(standings.values())
 

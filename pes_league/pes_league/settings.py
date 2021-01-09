@@ -116,8 +116,8 @@ USE_L10N = False
 
 USE_TZ = True
 
-DATET_FORMAT = 'Y/m/d'
-DATETIME_FORMAT = 'Y/m/d H:i'
+DATET_FORMAT = 'd/m/Y'
+DATETIME_FORMAT = 'd/m/Y H:i'
 
 
 # Static files (CSS, JavaScript, Images)

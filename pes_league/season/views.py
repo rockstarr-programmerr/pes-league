@@ -23,6 +23,7 @@ class SeasonDetailView(View):
     def get(self, request, slug, *args, **kwargs):
         season = get_object_or_404(Season, slug=slug)
         all_games = season.games.all().select_related('home_team', 'away_team')
+        all_games = list(all_games)  # Evaluate queryset
 
         # Bảng xếp hạng
         standings = get_standings(all_games, season)
