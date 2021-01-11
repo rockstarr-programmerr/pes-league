@@ -3,6 +3,7 @@
 
 {% block css %}
 <link rel="stylesheet" href="{% static 'common/game_results.css' %}">
+<link rel="stylesheet" href="{% static 'common/pagination.css' %}">
 {% endblock %}
 
 {% block body %}
@@ -15,5 +16,6 @@
 </section>
 <section>
     {% include 'common/game_results.html' with games=games display_time=True %}
+    {% include 'common/pagination.html' with objects=games %}
 </section>
 {% endblock %}

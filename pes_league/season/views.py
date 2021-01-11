@@ -81,6 +81,7 @@ class TeamDetailView(DetailView):
 class GameListView(ListView):
     model = Game
     context_object_name = 'games'
+    paginate_by = 25
 
 
 class GameDetailView(DetailView):

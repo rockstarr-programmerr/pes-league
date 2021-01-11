@@ -1,0 +1,11 @@
+.pagination select {
+    border: 1px solid darkgrey;
+    border-radius: 1px;
+    padding: 3px 7px;
+    height: 32px;
+    cursor: pointer;
+}
+
+.pagination select:focus {
+    outline: 0;
+}
