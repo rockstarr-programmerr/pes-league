@@ -134,3 +134,8 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [
     BASE_DIR / 'pes_league' / 'static',
 ]
+
+CSRF_COOKIE_DOMAIN = os.getenv('CSRF_COOKIE_DOMAIN', default=None)
+CSRF_COOKIE_NAME = os.getenv('CSRF_COOKIE_NAME', default='csrftoken')
+
+SESSION_COOKIE_NAME = os.getenv('SESSION_COOKIE_NAME', default='sessionid')
