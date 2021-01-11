@@ -6,8 +6,19 @@
 
 .standing-table th,
 .standing-table td {
-    border: 1px solid brown;
+    /* border: 1px solid brown; */
     padding: 4px 7px;
+}
+
+.standing-table tr {
+    border-bottom: solid 1px #eaeaea;
+    line-height: 28px;
+    -webkit-transition: all ease .3s;
+    transition: all ease .3s;
+}
+
+.standing-table tr:hover {
+    background-color: #f5f5f5;
 }
 
 .gg-crown {

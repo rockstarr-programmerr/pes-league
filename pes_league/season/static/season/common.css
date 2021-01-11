@@ -1,8 +1,13 @@
+html, 
+body {
+    height: 100%;
+    margin: 0px;
+}
+
 body {
     background-color: ivory;
     font-family: monospace;
     font-size: 14px;
-    padding-bottom: 24px;
 }
 
 input, select {
@@ -39,8 +44,8 @@ ul li {
 }
 
 .peslogo {
-    width: 50px;
-    margin-top: 14px;
+    /* width: 50px;
+    margin-top: 14px; */
     cursor: pointer;
 }
 
