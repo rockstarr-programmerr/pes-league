@@ -27,7 +27,10 @@ SECRET_KEY = 'b@#%b*jo%d$1a17v3fn0uze7*_jh^$&=t(_j0bb*21syr(w^&j'
 DEBUG = os.getenv('DJANGO_DEBUG', default='1') == '1'
 
 ALLOWED_HOSTS = []
-ALLOWED_HOSTS.extend(os.getenv('ALLOWED_HOSTS', default='').split(','))
+ALLOWED_HOSTS.extend(
+    os.getenv('ALLOWED_HOSTS', default='').split(',')
+)
+ALLOWED_HOSTS = list(filter(lambda x: x != '', ALLOWED_HOSTS))
 
 
 # Application definition
