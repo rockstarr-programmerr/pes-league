@@ -64,6 +64,17 @@ class SeasonDetailView(View):
             return render(request, 'season/season_detail.html', context)
 
 
+class SeasonGameListView(ListView):
+    context_object_name = 'games'
+    paginate_by = 25
+
+    def get_queryset(self):
+        slug = self.request.resolver_match.kwargs['slug']
+        season = get_object_or_404(Season, slug=slug)
+        games = season.games.all()
+        return games
+
+
 class TeamListView(ListView):
     model = Team
     context_object_name = 'teams'

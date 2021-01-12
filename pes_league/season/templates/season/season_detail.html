@@ -18,7 +18,7 @@
 <section>
     <h2>5 trận gần nhất</h2>
     {% include 'common/game_results.html' with games=games %}
-    <a href="{% url 'season:game_list' %}">Xem tất cả</a>
+    <a href="{% url 'season:season_game_list' season.slug %}">Xem tất cả</a>
 </section>
 <section>
     <hr>
