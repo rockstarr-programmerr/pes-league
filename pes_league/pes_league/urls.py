@@ -21,5 +21,6 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('pes/', include('season.urls')),
-    path('', views.index, name='home'),
+    path('home/', views.index, name='home'),
+    path('', views.season_list, name='redirect_season_list'),
 ]

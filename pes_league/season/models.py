@@ -10,10 +10,12 @@ class Season(models.Model):
     name = models.CharField('tên', max_length=255, unique=True)
     slug = models.SlugField('slug', max_length=255, unique=True)
     length = models.PositiveIntegerField('số vòng', default=38)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = 'mùa giải'
         verbose_name_plural = 'mùa giải'
+        ordering = ['created_at']
 
     def __str__(self):
         return f'{self.name}'
