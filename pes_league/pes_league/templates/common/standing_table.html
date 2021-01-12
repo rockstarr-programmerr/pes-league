@@ -2,8 +2,8 @@
     <table class="standing-table">
         <thead>
             <tr>
-                <th>TT</th>
-                <th>Đội bóng</th>
+                <th width="10%" class="align-center">TT</th>
+                <th width="23%" class="align-left">Đội bóng</th>
                 <th>Trận</th>
                 <th>Bàn thắng</th>
                 <th>Bàn thua</th>
@@ -25,11 +25,11 @@
                     <span><i class="gg-crown"></i></span>
                     {% endif %}
                 </td>
-                <td class="align-right">{{ standing.games_played }}</td>
-                <td class="align-right">{{ standing.points }}</td>
-                <td class="align-right">{{ standing.gf }}</td>
-                <td class="align-right">{{ standing.ga }}</td>
-                <td class="align-right">{{ standing.gd }}</td>
+                <td class="align-center">{{ standing.games_played }}</td>
+                <td class="align-center">{{ standing.gf }}</td>
+                <td class="align-center">{{ standing.ga }}</td>
+                <td class="align-center">{{ standing.gd }}</td>
+                <td class="align-center td-point">{{ standing.points }}</td>
             </tr>
             {% endfor %}
         </tbody>

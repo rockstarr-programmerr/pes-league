@@ -1,153 +1,200 @@
-html, 
+html,
 body {
-    height: 100%;
-    margin: 0px;
+  margin: 0px;
 }
 
 body {
-    background-color: ivory;
-    font-family: monospace;
-    font-size: 14px;
+  background-color: ivory;
+  font-family: monospace;
+  font-size: 14px;
 }
 
-input, select {
-    background-color: ivory;
-    font-family: monospace;
+input,
+select {
+  background-color: ivory;
+  font-family: monospace;
 }
 
-a:not([class=button]) {
-    text-decoration: none;
-    color: darkslategray;
-    text-shadow: 0 0 1px;
+a:not([class="button"]) {
+  text-decoration: none;
+  color: darkslategray;
+  text-shadow: 0 0 1px;
 }
 
-a:not([class=button]):hover {
-    text-shadow: 0 0 7px;
+a:not([class="button"]):hover {
+  text-shadow: 0 0 7px;
+}
+
+.container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 576px) {
+  .container-sm,
+  .container {
+    max-width: 540px;
+  }
+}
+@media (min-width: 768px) {
+  .container-md,
+  .container-sm,
+  .container {
+    max-width: 720px;
+  }
+}
+@media (min-width: 992px) {
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container {
+    max-width: 960px;
+  }
+}
+@media (min-width: 1200px) {
+  .container-xl,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container {
+    max-width: 1140px;
+  }
+}
+@media (min-width: 1400px) {
+  .container-xxl,
+  .container-xl,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container {
+    max-width: 1320px;
+  }
 }
 
 hr {
-    width: 400px;
-    margin: 27px auto;
+  width: 400px;
+  margin: 27px auto;
 }
 
 ul {
-    width: 400px;
-    margin: 0 auto;
-    font-size: 14px;
-    margin-bottom: 27px;
-    list-style: none;
-    padding-left: 0;
+  width: 400px;
+  margin: 0 auto;
+  font-size: 14px;
+  margin-bottom: 27px;
+  list-style: none;
+  padding-left: 0;
 }
 
 ul li {
-    margin-bottom: 3px;
+  margin-bottom: 3px;
 }
 
 .peslogo {
-    /* width: 50px;
+  /* width: 50px;
     margin-top: 14px; */
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .button {
-    background-color: bisque;
-    text-decoration: none;
-    padding: 7px 14px;
-    border-radius: 3px;
-    color: saddlebrown;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19);
-    cursor: pointer;
-    border: none;
-    font-size: 14px;
+  background-color: bisque;
+  text-decoration: none;
+  padding: 7px 14px;
+  border-radius: 3px;
+  color: saddlebrown;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19);
+  cursor: pointer;
+  border: none;
+  font-size: 14px;
 }
 
 .button:hover {
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.19);
 }
 
 .button:focus {
-    outline: 0;
+  outline: 0;
 }
 
 .align-center {
-    text-align: center;
+  text-align: center;
 }
 
 .align-left {
-    text-align: left;
+  text-align: left;
 }
 
 .align-right {
-    text-align: right;
+  text-align: right;
 }
 
 #messages-display ul {
-    margin-bottom: 4px;
+  margin-bottom: 4px;
 }
 
 .messages {
-    padding: 7px 14px;
-    border-radius: 3px;
-    margin-top: 14px;
+  padding: 7px 14px;
+  border-radius: 3px;
+  margin-top: 14px;
 }
 
 .message-success {
-    background-color: aqua;
+  background-color: aqua;
 }
 
 .message-error {
-    background-color: navajowhite;
-    color: red;
-    font-weight: 700;
+  background-color: navajowhite;
+  color: red;
+  font-weight: 700;
 }
 
 .back-btn {
-    font-size: 20px;
-    cursor: pointer;
+  font-size: 20px;
+  cursor: pointer;
 }
 
 .create-form {
-    text-align: left;
-    width: 400px;
-    margin: 0 auto;
-    margin-bottom: 14px;
+  text-align: left;
+  width: 400px;
+  margin: 0 auto;
+  margin-bottom: 14px;
 }
 
 .create-form input,
 .create-form select {
-    width: 100%;
-    border: 1px solid darkgrey;
-    border-radius: 1px;
-    padding: 3px 7px;
-    box-sizing: border-box;
-    height: 32px;
+  width: 100%;
+  border: 1px solid darkgrey;
+  border-radius: 1px;
+  padding: 3px 7px;
+  box-sizing: border-box;
+  height: 32px;
 }
 
 .create-form input:focus,
 .create-form select:focus {
-    outline: 0;
+  outline: 0;
 }
 
 .create-form select {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .create-form th {
-    font-weight: 400;
-    min-width: 75px;
+  font-weight: 400;
+  min-width: 75px;
 }
 
 .create-form td,
 .create-form th {
-    padding: 4px 0;
+  padding: 4px 0;
 }
 
 .errorlist {
-    margin-bottom: 7px;
-    color: red;
-    font-weight: 700;
-    background-color: navajowhite;
-    padding: 4px 7px;
-    border-radius: 1px;
-    box-sizing: border-box;
+  margin-bottom: 7px;
+  color: red;
+  font-weight: 700;
+  background-color: navajowhite;
+  padding: 4px 7px;
+  border-radius: 1px;
+  box-sizing: border-box;
 }
