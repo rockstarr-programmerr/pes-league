@@ -14,11 +14,7 @@
         <tbody>
             {% for standing in standings %}
             <tr>
-                {% if forloop.counter == 1 %}
-                <td class="align-center ">{{ forloop.counter }}</td>
-                {% else %}
                 <td class="align-center">{{ forloop.counter }}</td>
-                {% endif %}
                 <td class="align-left">
                     <span>{{ standing.team.name }}</span>
                     {% if forloop.counter == 1 %}
