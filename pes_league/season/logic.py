@@ -8,6 +8,7 @@ class TeamStanding:
         self.points = 0
         self.gf = 0  # Goal forward
         self.ga = 0  # Goal against
+        self.last_5 = []
 
     @property
     def gd(self):  # Goal difference
@@ -44,6 +45,8 @@ def get_standings(games, season):
                 point = 3
             else:
                 point = 0
+            if len(home_team_standing.last_5) < 5:
+                home_team_standing.last_5.append(point)
             home_team_standing.points += point
             home_team_standing.gf += game.home_team_score
             home_team_standing.ga += game.away_team_score
@@ -58,6 +61,8 @@ def get_standings(games, season):
                 point = 3
             else:
                 point = 0
+            if len(away_team_standing.last_5) < 5:
+                away_team_standing.last_5.append(point)
             away_team_standing.points += point
             away_team_standing.gf += game.away_team_score
             away_team_standing.ga += game.home_team_score
