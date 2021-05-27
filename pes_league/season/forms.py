@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from .models import Game, Season
+from .models import Game, Season, Team
 
 
 class GameCreateForm(forms.ModelForm):
@@ -18,3 +18,15 @@ class GameCreateForm(forms.ModelForm):
 
         if home_team == away_team:
             raise ValidationError('%s tự đá với nhau à?', code='dumb', params=(home_team, ))
+
+
+class TeamForm(forms.ModelForm):
+    class Meta:
+        model = Team
+        fields = '__all__'
+
+
+class SeasonForm(forms.ModelForm):
+    class Meta:
+        model = Season
+        fields = '__all__'

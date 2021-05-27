@@ -16,7 +16,7 @@ class SeasonListView(ListView):
 
 class SeasonCreateView(CreateView):
     model = Season
-    fields = ['name', 'length']
+    fields = ['name', 'length', 'teams']
 
 
 class SeasonDetailView(View):

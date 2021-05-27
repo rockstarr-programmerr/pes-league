@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'season.apps.SeasonConfig',
+    'graphene_django',
 ]
 
 MIDDLEWARE = [
@@ -142,3 +143,7 @@ CSRF_COOKIE_DOMAIN = os.getenv('CSRF_COOKIE_DOMAIN', default=None)
 CSRF_COOKIE_NAME = os.getenv('CSRF_COOKIE_NAME', default='csrftoken')
 
 SESSION_COOKIE_NAME = os.getenv('SESSION_COOKIE_NAME', default='sessionid')
+
+GRAPHENE = {
+    'SCHEMA': 'season.schema.schema',
+}

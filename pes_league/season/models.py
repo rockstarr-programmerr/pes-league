@@ -6,10 +6,32 @@ from django.shortcuts import reverse
 # Create your models here.
 
 
+class Team(models.Model):
+    name = models.CharField('tên', max_length=255, unique=True)
+    slug = models.SlugField('slug', max_length=255, unique=True, blank=True)
+    manager = models.CharField('huấn luyện viên', max_length=255)
+
+    class Meta:
+        verbose_name = 'đội bóng'
+        verbose_name_plural = 'đội bóng'
+
+    def __str__(self):
+        return f'{self.name}'
+
+    def get_absolute_url(self):
+        return reverse('season:team_detail', args=(self.slug, ))
+
+    def save(self, *args, **kwargs):
+        cleaned_name = self.name.lower().replace('đ', 'd')
+        self.slug = slugify(cleaned_name)
+        return super().save(*args, **kwargs)
+
+
 class Season(models.Model):
     name = models.CharField('tên', max_length=255, unique=True)
-    slug = models.SlugField('slug', max_length=255, unique=True)
-    length = models.PositiveIntegerField('số vòng', default=38)
+    slug = models.SlugField('slug', max_length=255, unique=True, blank=True)
+    length = models.PositiveIntegerField('số vòng', default=38, blank=True)
+    teams = models.ManyToManyField(Team, related_name='seasons', verbose_name='đội bóng')
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -22,27 +44,6 @@ class Season(models.Model):
 
     def get_absolute_url(self):
         return reverse('season:season_detail', args=(self.slug, ))
-
-    def save(self, *args, **kwargs):
-        cleaned_name = self.name.lower().replace('đ', 'd')
-        self.slug = slugify(cleaned_name)
-        return super().save(*args, **kwargs)
-
-
-class Team(models.Model):
-    name = models.CharField('tên', max_length=255, unique=True)
-    slug = models.SlugField('slug', max_length=255, unique=True)
-    manager = models.CharField('huấn luyện viên', max_length=255)
-
-    class Meta:
-        verbose_name = 'đội bóng'
-        verbose_name_plural = 'đội bóng'
-
-    def __str__(self):
-        return f'{self.name}'
-
-    def get_absolute_url(self):
-        return reverse('season:team_detail', args=(self.slug, ))
 
     def save(self, *args, **kwargs):
         cleaned_name = self.name.lower().replace('đ', 'd')
