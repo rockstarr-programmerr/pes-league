@@ -62,3 +62,7 @@
     background-color: #f5f5f5;
     font-weight: bold;
 }
+
+.standing-table tr th:not(:last-child){
+    border-right: 1px solid #969696;
+}

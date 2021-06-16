@@ -5,6 +5,9 @@
                 <th width="10%" class="align-center">TT</th>
                 <th width="23%" class="align-left">Đội bóng</th>
                 <th>Trận</th>
+                <th>Số trận thắng</th>
+                <th>Số trận hòa</th>
+                <th>Số trận thua</th>
                 <th>Bàn thắng</th>
                 <th>Bàn thua</th>
                 <th>Hiệu số</th>
@@ -27,6 +30,9 @@
                     {% endif %}
                 </td>
                 <td class="align-center">{{ standing.games_played }}</td>
+                <td class="align-center">{{ standing.win }}</td>
+                <td class="align-center">{{ standing.draw }}</td>
+                <td class="align-center">{{ standing.lose }}</td>
                 <td class="align-center">{{ standing.gf }}</td>
                 <td class="align-center">{{ standing.ga }}</td>
                 <td class="align-center">{{ standing.gd }}</td>

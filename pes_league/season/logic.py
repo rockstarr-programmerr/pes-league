@@ -14,6 +14,9 @@ class TeamStanding:
         self.points = 0
         self.gf = 0  # Goal forward
         self.ga = 0  # Goal against
+        self.win = 0
+        self.draw = 0
+        self.lose = 0
         self.results = []
 
     @property
@@ -48,12 +51,15 @@ def get_standings(games, season):
             if draw:
                 point = 1
                 home_team_standing.results.append(Result.DRAW)
+                home_team_standing.draw += 1
             elif home_team_won:
                 point = 3
                 home_team_standing.results.append(Result.WIN)
+                home_team_standing.win += 1
             else:
                 point = 0
                 home_team_standing.results.append(Result.LOSE)
+                home_team_standing.lose += 1
 
             home_team_standing.points += point
             home_team_standing.gf += game.home_team_score
@@ -66,12 +72,15 @@ def get_standings(games, season):
             if draw:
                 point = 1
                 away_team_standing.results.append(Result.DRAW)
+                away_team_standing.draw += 1
             elif away_team_won:
                 point = 3
                 away_team_standing.results.append(Result.WIN)
+                away_team_standing.win += 1
             else:
                 point = 0
                 away_team_standing.results.append(Result.LOSE)
+                away_team_standing.lose += 1
 
             away_team_standing.points += point
             away_team_standing.gf += game.away_team_score
