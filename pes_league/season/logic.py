@@ -1,5 +1,11 @@
+from django.db.models import IntegerChoices
+
 from .models import Team
 
+class Result(IntegerChoices):
+    WIN = 1
+    DRAW = 2
+    LOSE = 3
 
 class TeamStanding:
     def __init__(self, team):
@@ -8,7 +14,7 @@ class TeamStanding:
         self.points = 0
         self.gf = 0  # Goal forward
         self.ga = 0  # Goal against
-        self.last_5 = []
+        self.results = []
 
     @property
     def gd(self):  # Goal difference
@@ -41,12 +47,14 @@ def get_standings(games, season):
             home_team_standing.games_played += 1
             if draw:
                 point = 1
+                home_team_standing.results.append(Result.DRAW)
             elif home_team_won:
                 point = 3
+                home_team_standing.results.append(Result.WIN)
             else:
                 point = 0
-            # if len(home_team_standing.last_5) < 5:
-            home_team_standing.last_5.append(point)
+                home_team_standing.results.append(Result.LOSE)
+
             home_team_standing.points += point
             home_team_standing.gf += game.home_team_score
             home_team_standing.ga += game.away_team_score
@@ -57,17 +65,23 @@ def get_standings(games, season):
             away_team_standing.games_played += 1
             if draw:
                 point = 1
+                away_team_standing.results.append(Result.DRAW)
             elif away_team_won:
                 point = 3
+                away_team_standing.results.append(Result.WIN)
             else:
                 point = 0
-            # if len(away_team_standing.last_5) < 5:
-            away_team_standing.last_5.append(point)
+                away_team_standing.results.append(Result.LOSE)
+
             away_team_standing.points += point
             away_team_standing.gf += game.away_team_score
             away_team_standing.ga += game.home_team_score
 
     standings = list(standings.values())
+
+    # Lấy phong độ 5 trận gần nhất
+    for standing in standings:
+        standing.results = standing.results[-5:]
 
     ordering_rule = lambda standing: (
         standing.points,

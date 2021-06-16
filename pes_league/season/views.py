@@ -6,7 +6,7 @@ from django.contrib import messages
 
 from .models import Season, Team, Game
 from .forms import GameCreateForm
-from .logic import get_standings
+from .logic import get_standings, Result
 
 
 class SeasonListView(ListView):
@@ -39,6 +39,8 @@ class SeasonDetailView(View):
             'standings': standings,
             'games': games,
             'form': form,
+            'RESULT': Result,
+            'time' : range(5)
         }
 
         return render(request, 'season/season_detail.html', context)
