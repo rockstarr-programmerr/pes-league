@@ -24,7 +24,7 @@ class TeamStanding:
         return self.gf - self.ga
 
 def get_standings(games, season):
-    teams = Team.objects.all()
+    teams = season.teams.all()
     standings = {
         team.pk: TeamStanding(team)
         for team in teams

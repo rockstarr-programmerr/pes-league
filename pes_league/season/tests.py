@@ -6,9 +6,10 @@ from .logic import get_standings
 
 class StandingTableTwoTeamsTestCase(TestCase):
     def setUp(self):
-        self._season = Season.objects.create(name='2020-2021', length=38)
         self._home_team = Team.objects.create(name='FC gắp bóng', manager='Trung')
         self._away_team = Team.objects.create(name='FC xoạc', manager='Thành LV')
+        self._season = Season.objects.create(name='2020-2021', length=38)
+        self._season.teams.add(self._home_team, self._away_team)
 
     def _create_game(self, home_score, away_score):
         return Game.objects.create(
@@ -211,11 +212,12 @@ class StandingTableTwoTeamsTestCase(TestCase):
 
 class StandingTableThreeTeamsTestCase(TestCase):
     def setUp(self):
-        self._season = Season.objects.create(name='Fun league')
         self._team_1 = Team.objects.create(name='FC tấu hài', manager='Tuấn LA')
         self._team_2 = Team.objects.create(name='FC hihi haha', manager='Tuấn DV')
         self._team_3 = Team.objects.create(name='FC gắp bóng', manager='Trung')
         self._team_4 = Team.objects.create(name='FC xoạc', manager='Thành LV')
+        self._season = Season.objects.create(name='Fun league')
+        self._season.teams.add(self._team_1, self._team_2, self._team_3, self._team_4)
 
     def _create_game(self, home_team, away_team, home_team_score, away_team_score):
         return Game.objects.create(

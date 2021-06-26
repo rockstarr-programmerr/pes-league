@@ -1,5 +1,3 @@
-import copy
-
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View, ListView, DetailView, CreateView
 from django.contrib import messages
@@ -32,7 +30,7 @@ class SeasonDetailView(View):
         games = all_games[:5]
 
         # Form tạo trận đấu
-        form = GameCreateForm()
+        form = GameCreateForm(season)
 
         context = {
             'season': season,
@@ -47,10 +45,7 @@ class SeasonDetailView(View):
 
     def post(self, request, slug, *args, **kwargs):
         season = get_object_or_404(Season, slug=slug)
-
-        data = copy.deepcopy(request.POST)
-        data['season'] = season
-        form = GameCreateForm(data)
+        form = GameCreateForm(season, data=request.POST)
 
         if form.is_valid():
             form.save()

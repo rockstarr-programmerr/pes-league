@@ -11,6 +11,13 @@ class GameCreateForm(forms.ModelForm):
         model = Game
         exclude = ['time']
 
+    def __init__(self, season, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['season'].initial = season
+        teams = season.teams.all()
+        self.fields['home_team'].queryset = teams
+        self.fields['away_team'].queryset = teams
+
     def clean(self):
         cleaned_data = super().clean()
         home_team = cleaned_data['home_team']
