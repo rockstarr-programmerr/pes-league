@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View, ListView, DetailView, CreateView
 from django.contrib import messages
+from django.db import transaction
 
 from .models import Season, Team, Game
-from .forms import GameCreateForm
-from .logic import get_standings, Result
+from .forms import GameCreateForm, SeasonCreateForm
+from .logic.team_standing import get_standings, Result
 
 
 class SeasonListView(ListView):
@@ -14,7 +15,11 @@ class SeasonListView(ListView):
 
 class SeasonCreateView(CreateView):
     model = Season
-    fields = ['name', 'length', 'teams']
+    form_class = SeasonCreateForm
+
+    @transaction.atomic
+    def post(self, *args, **kwargs):
+        return super().post(self, *args, **kwargs)
 
 
 class SeasonDetailView(View):

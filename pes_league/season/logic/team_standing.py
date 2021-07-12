@@ -1,6 +1,7 @@
+import random
+
 from django.db.models import IntegerChoices
 
-from .models import Team
 
 class Result(IntegerChoices):
     WIN = 1
@@ -22,6 +23,33 @@ class TeamStanding:
     @property
     def gd(self):  # Goal difference
         return self.gf - self.ga
+
+    def _played(self):
+        self.games_played += 1
+
+    def won(self, gf, ga):
+        self._played()
+        self.points += 3
+        self.gf += gf
+        self.ga += ga
+        self.win += 1
+        self.results.append(Result.WIN)
+
+    def lost(self, gf, ga):
+        self._played()
+        self.gf += gf
+        self.ga += ga
+        self.lose += 1
+        self.results.append(Result.LOSE)
+
+    def drew(self, gf, ga):
+        self._played()
+        self.points += 1
+        self.gf += gf
+        self.ga += ga
+        self.lose += 1
+        self.results.append(Result.DRAW)
+
 
 def get_standings(games, season):
     teams = season.teams.all()
@@ -47,44 +75,22 @@ def get_standings(games, season):
         # For home team
         home_team_standing = standings[home_team.pk]
         if home_team_standing.games_played < season.length:
-            home_team_standing.games_played += 1
             if draw:
-                point = 1
-                home_team_standing.results.append(Result.DRAW)
-                home_team_standing.draw += 1
+                home_team_standing.drew(game.home_team_score, game.away_team_score)
             elif home_team_won:
-                point = 3
-                home_team_standing.results.append(Result.WIN)
-                home_team_standing.win += 1
+                home_team_standing.won(game.home_team_score, game.away_team_score)
             else:
-                point = 0
-                home_team_standing.results.append(Result.LOSE)
-                home_team_standing.lose += 1
-
-            home_team_standing.points += point
-            home_team_standing.gf += game.home_team_score
-            home_team_standing.ga += game.away_team_score
+                home_team_standing.lost(game.home_team_score, game.away_team_score)
 
         # For away team
         away_team_standing = standings[away_team.pk]
         if away_team_standing.games_played < season.length:
-            away_team_standing.games_played += 1
             if draw:
-                point = 1
-                away_team_standing.results.append(Result.DRAW)
-                away_team_standing.draw += 1
+                away_team_standing.drew(game.away_team_score, game.home_team_score)
             elif away_team_won:
-                point = 3
-                away_team_standing.results.append(Result.WIN)
-                away_team_standing.win += 1
+                away_team_standing.won(game.away_team_score, game.home_team_score)
             else:
-                point = 0
-                away_team_standing.results.append(Result.LOSE)
-                away_team_standing.lose += 1
-
-            away_team_standing.points += point
-            away_team_standing.gf += game.away_team_score
-            away_team_standing.ga += game.home_team_score
+                away_team_standing.lost(game.away_team_score, game.home_team_score)
 
     standings = list(standings.values())
 

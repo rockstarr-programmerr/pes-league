@@ -1,7 +1,13 @@
+from faker import Faker
+from model_bakery import baker
+
 from django.test import TestCase
+from django.shortcuts import reverse
 
 from .models import Season, Team, Game
-from .logic import get_standings
+from .logic.team_standing import get_standings
+
+fake = Faker()
 
 
 class StandingTableTwoTeamsTestCase(TestCase):
@@ -345,3 +351,30 @@ class StandingTableThreeTeamsTestCase(TestCase):
         self.assertEqual(standing_team_2.points, 38)
         self.assertEqual(standing_team_3.points, 38)
         self.assertEqual(standing_team_4.points, 38)
+
+
+class SeasonCreateTestCase(TestCase):
+    def create_season_and_teams(self, teams_count, rounds_count):
+        url = reverse('season:season_create')
+        self.teams = baker.make(Team, _quantity=teams_count)
+        season_name = fake.text(max_nb_chars=30)
+        self.client.post(url, {
+            'name': season_name,
+            'rounds_count': rounds_count,
+            'teams': [team.pk for team in self.teams],
+        })
+        self.season = Season.objects.filter(name=season_name).prefetch_related('rounds__games').first()
+        self.assertIsNotNone(self.season)
+
+    def test_rounds_created_auto_magically_after_creating_season(self):
+        self.create_season_and_teams(3, 38)
+        rounds = self.season.rounds.all()
+        for index, round in enumerate(rounds):
+            self.assertEqual(round.season_id, self.season.pk)
+            self.assertEqual(round.number, index + 1)
+
+    def test_games_created_auto_magically_after_creating_season(self):
+        # Even teams
+        self.create_season_and_teams(20, 38)
+        games = self.season.get_games()
+        self.assertEqual(len(games), 380)
