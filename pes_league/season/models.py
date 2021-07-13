@@ -87,7 +87,7 @@ class Game(models.Model):
     away_team_score = models.PositiveSmallIntegerField(null=True, blank=True, verbose_name='bàn thắng đội khách')
     season = models.ForeignKey(Season, on_delete=models.CASCADE, null=True, related_name='games', verbose_name='mùa giải')
     round = models.ForeignKey(Round, on_delete=models.CASCADE, null=True, related_name='games', verbose_name='vòng đấu')
-    time = models.DateTimeField('ngày giờ thi đấu', default=timezone.now)
+    time = models.DateTimeField('ngày giờ thi đấu', null=True, blank=True, default=timezone.now)
 
     class Meta:
         verbose_name = 'trận đấu'

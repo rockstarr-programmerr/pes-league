@@ -30,29 +30,26 @@ class GameCreateForm(forms.ModelForm):
 
 
 class SeasonCreateForm(forms.ModelForm):
+    turns_count = forms.IntegerField(
+        min_value=1,
+        max_value=50,
+        required=True,
+        label='Số lượt trận',
+    )
     rounds_count = forms.IntegerField(
         min_value=1,
-        max_value=100,
-        initial=38,
         required=True,
-        label='Số vòng'
+        label='Số vòng',
+        help_text='Số vòng được tự tính theo số đội và số lượt trận.',
+        widget=forms.NumberInput(attrs={'readonly': True}),
     )
 
     class Meta:
         model = Season
-        fields = ['name', 'rounds_count', 'teams']
-
-    def clean(self):
-        cleaned_data = super().clean()
-        teams_count = len(cleaned_data['teams'])
-        rounds_count = cleaned_data['rounds_count']
-
-        if is_odd(teams_count) and is_odd(rounds_count):
-            raise ValidationError(
-                ('Nếu số đội lẻ thì số vòng phải chẵn, '
-                 'để mỗi đội được đá đủ số trận.'),
-                code='invalid'
-            )
+        fields = ['name', 'teams', 'turns_count']
+        help_texts = {
+            'teams': 'Giữ shift để chọn nhiều đội.',
+        }
 
     def save(self, *args, **kwargs):
         assert kwargs.get('commit', True) is True, \
@@ -61,7 +58,13 @@ class SeasonCreateForm(forms.ModelForm):
         season = super().save(*args, **kwargs)
 
         teams = self.cleaned_data['teams']
-        rounds_count = self.cleaned_data['rounds_count']
+        turns_count = self.cleaned_data['turns_count']
+
+        teams_count = len(teams)
+        if is_odd(teams_count):
+            rounds_count = teams_count * turns_count
+        else:
+            rounds_count = (teams_count - 1) * turns_count
 
         self._create_rounds(season, rounds_count)
         self._create_games(season, rounds_count, teams)
@@ -98,6 +101,7 @@ class SeasonCreateForm(forms.ModelForm):
                     home_team=game['home'],
                     away_team=game['away'],
                     round_id=round_pk,
+                    time=None,  # Trận chưa đá nên time = None
                 )
                 games.append(new_game)
 

@@ -91,7 +91,7 @@ def _create_games(home_teams, away_teams):
 def _rotate_teams(first_group, second_group):
     """
     >>> first_group = [1, 2, 3, 4]
-    >>> second_group = [1, 2, 3, 4]
+    >>> second_group = [5, 6, 7, 8]
     >>> _rotate_teams(first_group, second_group)
     >>> first_group
     [1, 5, 2, 3]

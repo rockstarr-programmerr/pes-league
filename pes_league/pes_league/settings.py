@@ -147,3 +147,5 @@ SESSION_COOKIE_NAME = os.getenv('SESSION_COOKIE_NAME', default='sessionid')
 GRAPHENE = {
     'SCHEMA': 'season.schema.schema',
 }
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'

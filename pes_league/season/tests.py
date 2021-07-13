@@ -378,3 +378,16 @@ class SeasonCreateTestCase(TestCase):
         self.create_season_and_teams(20, 38)
         games = self.season.get_games()
         self.assertEqual(len(games), 380)
+
+        self.create_season_and_teams(4, 6)
+        games = self.season.get_games()
+        self.assertEqual(len(games), 12)
+
+        # Odd teams
+        self.create_season_and_teams(7, 42)
+        games = self.season.get_games()
+        self.assertEqual(len(games), 126)
+
+        self.create_season_and_teams(7, 21)
+        games = self.season.get_games()
+        self.assertEqual(len(games), 63)

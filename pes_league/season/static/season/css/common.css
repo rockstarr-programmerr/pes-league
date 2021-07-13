@@ -190,7 +190,12 @@ ul li {
 
 .create-form td,
 .create-form th {
-  padding: 4px 0;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.create-form th {
+  padding-right: 4px
 }
 
 .errorlist {
@@ -217,4 +222,11 @@ ul li {
 
 .border-bottom-lose {
   border-bottom: 2px solid red;
+}
+
+.helptext {
+  font-size: 12px;
+  color: darkslategray;
+  display: block;
+  margin-top: 5px;
 }

@@ -1,6 +1,10 @@
 {% extends 'base/base.html' %}
 {% load static %}
 
+{% block css %}
+<link rel="stylesheet" href="{% static 'season/css/season_form.css' %}">
+{% endblock %}
+
 {% block body %}
 <section>
     <h1>Mùa giải mới</h1>
@@ -18,4 +22,8 @@
     <hr>
     {% include 'common/back_btn.html' %}
 </section>
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'season/js/season_form.js' %}"></script>
 {% endblock %}

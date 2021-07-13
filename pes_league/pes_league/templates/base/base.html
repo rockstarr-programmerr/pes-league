@@ -6,8 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}PES league{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'season/common.css' %}">
-    <link rel="icon" type="image/png" href="{% static 'season/gi-icon.png' %}"/>
+    <link rel="stylesheet" href="{% static 'season/css/common.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'season/img/gi-icon.png' %}"/>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     {% block css %}{% endblock %}
@@ -28,17 +28,19 @@
     {% block logo %}
         <div>
             <a href="{% url 'home' %}">
-                <img src="{% static 'season/peslogo.png' %}" alt="peslogo" class="peslogo">
+                <img src="{% static 'season/img/peslogo.png' %}" alt="peslogo" class="peslogo">
             </a>
         </div>
     {% endblock %}
 
     {% block body %}{% endblock %}
 
-    {% block js %}
+    {% block default_js %}
         {% if messages %}
         <script src="{% static 'common/messages.js' %}"></script>
         {% endif %}
     {% endblock %}
+
+    {% block js %}{% endblock %}
 </body>
 </html>
