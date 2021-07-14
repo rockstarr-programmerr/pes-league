@@ -10,7 +10,7 @@
 <section>
     <h1>Tất cả trận đấu</h1>
 </section>
-<section>
+<section class="games-list">
     {% include 'common/game_results.html' with games=games display_time=True %}
     {% include 'common/pagination.html' with objects=games %}
 </section>

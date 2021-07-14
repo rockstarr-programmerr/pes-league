@@ -27,3 +27,7 @@ python manage.py migrate
 ```
 python manage.py runserver
 ```
+
+### Debug for VSCode
+- Turn off development server (`Ctrl+C`)
+- Press `F5`

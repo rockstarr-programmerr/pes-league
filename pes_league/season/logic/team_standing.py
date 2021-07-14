@@ -62,7 +62,9 @@ def get_standings(games, season):
     # nhưng ở đây cần sắp xếp ngược lại
     # để xử lý logic: Nếu 1 đội bóng đá nhiều hơn số trận tối đa của 1 mùa giải
     # thì những trận từ đó trở đi sẽ không được tính điểm nữa
-    games = list(reversed(games))  # Tạo list mới chứ không được mutate list cũ
+    # NOTE: Chỉ áp dụng với version 1
+    if season.is_version_1():
+        games = list(reversed(games))  # Tạo list mới chứ không được mutate list cũ
 
     for game in games:
         home_team = game.home_team
@@ -74,7 +76,7 @@ def get_standings(games, season):
 
         # For home team
         home_team_standing = standings[home_team.pk]
-        if home_team_standing.games_played < season.length:
+        if home_team_standing.games_played < season.get_season_length():
             if draw:
                 home_team_standing.drew(game.home_team_score, game.away_team_score)
             elif home_team_won:
@@ -84,7 +86,7 @@ def get_standings(games, season):
 
         # For away team
         away_team_standing = standings[away_team.pk]
-        if away_team_standing.games_played < season.length:
+        if away_team_standing.games_played < season.get_season_length():
             if draw:
                 away_team_standing.drew(game.away_team_score, game.home_team_score)
             elif away_team_won:

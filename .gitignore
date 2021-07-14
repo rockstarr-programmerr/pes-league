@@ -1,6 +1,5 @@
 .env/
 *.code-workspace
-.vscode/
 db.sqlite3
 __pycache__/
 staticfiles/

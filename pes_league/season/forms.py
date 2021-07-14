@@ -1,5 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from django.utils import timezone
 
 from .models import Game, Season, Team, Round
 from .logic.game_scheduler import get_schedule
@@ -11,22 +12,65 @@ class GameCreateForm(forms.ModelForm):
 
     class Meta:
         model = Game
-        exclude = ['time']
+        exclude = ['time', 'round']
 
-    def __init__(self, season, *args, **kwargs):
+    def __init__(self, season=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['season'].initial = season
+        if 'season' in self.fields:
+            self.fields['season'].initial = season
+
         teams = season.teams.all()
         self.fields['home_team'].queryset = teams
         self.fields['away_team'].queryset = teams
 
+    def save(self, *args, **kwargs):
+        kwargs['commit'] = False
+        instance = super().save(*args, **kwargs)
+        instance.time = timezone.now()
+        self.save_m2m()
+        return instance.save()
+
     def clean(self):
         cleaned_data = super().clean()
+        self._validate_team(cleaned_data)
+        self._validate_score(cleaned_data)
+
+    def _validate_team(self, cleaned_data):
         home_team = cleaned_data['home_team']
         away_team = cleaned_data['away_team']
 
         if home_team == away_team:
-            raise ValidationError('%s tự đá với nhau à?', code='dumb', params=(home_team, ))
+            raise ValidationError('%s tự đá với nhau à?', code='dumb', params=(home_team.name, ))
+
+    def _validate_score(self, cleaned_data):
+        home_team_score = cleaned_data['home_team_score']
+        away_team_score = cleaned_data['away_team_score']
+
+        if (
+            (home_team_score is not None and away_team_score is None) or
+            (away_team_score is not None and home_team_score is None)
+        ):
+            raise ValidationError('Chưa nhập đủ thông tin.', code='dumb')
+
+
+class GameCreateFormV2(GameCreateForm):
+    round = forms.ModelChoiceField(Round.objects.all(), required=False, widget=forms.HiddenInput())
+
+    class Meta(GameCreateForm.Meta):
+        exclude = ['time', 'season']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['home_team'].disabled = True
+        self.fields['away_team'].disabled = True
+
+        game = self.instance
+        if game.is_played():
+            self.fields['home_team_score'].disabled = True
+            self.fields['away_team_score'].disabled = True
+
+
+GameCreateFormSet = forms.modelformset_factory(Game, form=GameCreateFormV2, extra=0, can_delete=False)
 
 
 class SeasonCreateForm(forms.ModelForm):
