@@ -1,0 +1,14 @@
+.create-form th {
+  min-width: 110px;
+  vertical-align: top;
+  padding-top: 8px;
+}
+
+#id_rounds_count {
+  background-color: aliceblue;
+  cursor: default;
+}
+
+#id_teams {
+  height: 140px;
+}

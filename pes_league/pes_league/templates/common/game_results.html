@@ -7,7 +7,7 @@
                     <span>{{ game.home_team }}</span>
                 </div>
                 <div class="game-result-score">
-                    <span>{{ game.home_team_score }} - {{ game.away_team_score }}</span>
+                    <span>{{ game.home_team_score|default_if_none:"?" }} - {{ game.away_team_score|default_if_none:"?" }}</span>
                 </div>
                 <div class="game-result-team align-right">
                     <span>{{ game.away_team }}</span>
@@ -16,9 +16,11 @@
         </a>
         {% if display_time %}
         <div class="game-time">
-            <span>{{ game.time }}</span>
+            <span>{{ game.time|default_if_none:"" }}</span>
         </div>
         {% endif %}
     </li>
+    {% empty %}
+    <li class="helptext">Chưa có dữ liệu.</li>
     {% endfor %}
 </ul>

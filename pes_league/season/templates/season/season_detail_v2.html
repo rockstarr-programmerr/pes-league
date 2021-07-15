@@ -1,0 +1,68 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'common/game_results.css' %}">
+<link rel="stylesheet" href="{% static 'common/standing_table.css' %}">
+<link rel="stylesheet" href="{% static 'season/css/season_detail.css' %}">
+{% endblock %}
+
+{% block body %}
+<section>
+    <h1>Mùa giải {{ season }}</h1>
+    <p>Số vòng: {{ season.get_season_length }}</p>
+</section>
+<section>
+    <h2>Bảng xếp hạng</h2>
+    {% include 'common/standing_table.html' with standings=standings %}
+</section>
+<section class="games-list">
+    <h2>5 trận gần nhất</h2>
+    {% include 'common/game_results.html' with games=last_5_games %}
+    <a href="{% url 'season:season_game_list' season.slug %}">Xem tất cả</a>
+</section>
+<section id="round-section">
+    <hr>
+    <h2 class="round-title">
+        <a
+            href="?vong={{ showing_round.number|add:-1 }}#round-section"
+            {% if showing_round.number <= 1 %}
+            disabled
+            {% endif %}
+        >
+            &lt;
+        </a>
+        {{ showing_round }}
+        <a
+            href="?vong={{ showing_round.number|add:1 }}#round-section"
+            {% if showing_round.number >= rounds_count %}
+            disabled
+            {% endif %}
+        >
+            &gt;
+        </a>
+    </h2>
+    {% if showing_round.number != current_round.number %}
+    <span class="helptext">
+        <a href="{% url 'season:season_detail' season.slug %}#round-section">Về vòng hiện tại</a>
+    </span>
+    <br>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        {{ formset.management_form }}
+        {% for form in formset %}
+        <table class="create-form">
+            {{ form.as_table }}
+        </table>
+        {% endfor %}
+        {% if not showing_round.is_finished %}
+        <input class="button" type="submit" value="Lưu">
+        {% endif %}
+    </form>
+</section>
+<section>
+    <hr>
+    {% include 'common/back_btn.html' %}
+</section>
+{% endblock %}

@@ -1,0 +1,25 @@
+.create-form {
+  margin-bottom: 17px;
+}
+
+.create-form label {
+  display: block;
+  min-width: 169px;
+}
+
+.create-form select {
+  appearance: none;
+  cursor: default;
+}
+
+.create-form select[disabled],
+.create-form input[disabled] {
+  opacity: 1;
+  color: initial;
+  background-color: aliceblue;
+}
+
+.round-title a[disabled] {
+  pointer-events: none;
+  opacity: 0.5;
+}
