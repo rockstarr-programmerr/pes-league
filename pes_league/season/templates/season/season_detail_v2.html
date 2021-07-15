@@ -16,7 +16,7 @@
     <h2>Bảng xếp hạng</h2>
     {% include 'common/standing_table.html' with standings=standings %}
 </section>
-<section class="games-list">
+<section>
     <h2>5 trận gần nhất</h2>
     {% include 'common/game_results.html' with games=last_5_games %}
     <a href="{% url 'season:season_game_list' season.slug %}">Xem tất cả</a>

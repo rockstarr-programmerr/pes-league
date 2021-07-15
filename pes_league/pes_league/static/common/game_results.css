@@ -1,19 +1,28 @@
 .game-result-container {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
 }
 
 .game-result-team {
-    flex-basis: 33%;
+  flex-basis: 33%;
 }
 
 .game-result-score {
-    flex-basis: 33%;
+  flex-basis: 33%;
 }
 
 .game-time {
-    padding: 7px 0;
-    font-size: 12px;
-    font-style: italic;
+  padding: 7px 0;
+  font-size: 12px;
+  font-style: italic;
+}
+
+.game-result-team span {
+  display: block;
+}
+
+.manager-name {
+  font-size: 13px;
+  font-style: italic;
 }

@@ -230,8 +230,3 @@ ul li {
   display: block;
   margin-top: 5px;
 }
-
-.games-list ul,
-.games-list li {
-  max-width: 565px;
-}
