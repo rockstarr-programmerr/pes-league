@@ -69,7 +69,7 @@ class SeasonDetailView(View):
         # Form tạo trận đấu
         if not formset:
             formset = GameCreateFormSet(
-                queryset=current_round.games.all(),
+                queryset=showing_round.games.order_by('pk').all(),
                 form_kwargs={'season': season}
             )
 
