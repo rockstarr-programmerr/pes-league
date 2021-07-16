@@ -2,7 +2,7 @@
     <table class="standing-table">
         <thead>
             <tr>
-                <th width="5%" class="align-center">TT</th>
+                <th width="3%" class="align-center">TT</th>
                 <th width="23%" class="align-left">Đội bóng</th>
                 <th>Trận</th>
                 <th>Thắng</th>
@@ -24,7 +24,7 @@
                 <td class="align-center border-bottom-lose">{{ forloop.counter }}</td>
                 {% endif %}
                 <td class="align-left border-right">
-                    <span>{{ standing.team.name }}</span>
+                    <span>{{ standing.team.name }} - {{ standing.team.manager }}</span>
                     {% if forloop.counter == 1 %}
                     <span><i class="gg-crown"></i></span>
                     {% endif %}

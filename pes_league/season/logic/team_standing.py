@@ -47,7 +47,7 @@ class TeamStanding:
         self.points += 1
         self.gf += gf
         self.ga += ga
-        self.lose += 1
+        self.draw += 1
         self.results.append(Result.DRAW)
 
 
