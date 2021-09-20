@@ -35,7 +35,7 @@ python manage.py runserver
 ### Environment variables
 Default variables should work already, but if you need to customize:
 - Add file `pes_league/.env`
-- Available variables can be seen in `pes_league/settings.py` file:
+- Available variables can be seen in `pes_league/pes_league/settings.py` file:
 ```
 env = environ.Env(
     # Available variables are listed here
