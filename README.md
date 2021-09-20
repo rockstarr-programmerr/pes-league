@@ -4,12 +4,12 @@
 
 ### Create virtual environment
 ```
-python -m venv .env
+python -m venv .venv
 ```
 
 ### Activate virtual environment
 ```
-.env\Scripts\activate
+.venv\Scripts\activate
 ```
 
 ### Install dependencies
@@ -31,3 +31,13 @@ python manage.py runserver
 ### Debug for VSCode
 - Turn off development server (`Ctrl+C`)
 - Press `F5`
+
+### Environment variables
+Default variables should work already, but if you need to customize:
+- Add file `pes_league/.env`
+- Available variables can be seen in `pes_league/settings.py` file:
+```
+env = environ.Env(
+    # Available variables are listed here
+)
+```

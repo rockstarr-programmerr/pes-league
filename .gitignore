@@ -1,6 +1,5 @@
-.env/
-*.code-workspace
 db.sqlite3
 __pycache__/
 staticfiles/
 .venv
+.env

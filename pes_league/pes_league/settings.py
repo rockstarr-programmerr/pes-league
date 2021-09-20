@@ -12,25 +12,41 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 import os
 from pathlib import Path
+import environ
+from email.utils import getaddresses
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+env = environ.Env(
+    SECRET_KEY=(str, 'nothingtoseehere'),
+    DEBUG=(bool, True),
+    ALLOWED_HOSTS=(list, []),
+
+    # If you want to use unsafe characters in DATABASE_URL, you must escape it first using urllib.parse.quote
+    # Example: if your db password is xyz#$%abc, then your DATABASE_URL should be:
+    # mysql://user:xyz%23%24%25abc@mysql:3306/dbname
+    DATABASE_URL=(str, 'sqlite:///db.sqlite3'),
+    ADMINS=(list, []),
+    CSRF_COOKIE_DOMAIN=(str, None),
+    CSRF_COOKIE_NAME=(str, 'csrftoken'),
+    SESSION_COOKIE_NAME=(str, 'sessionid'),
+)
+# reading .env file
+env_file = str(BASE_DIR / '.env')
+environ.Env.read_env(env_file=env_file)
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'b@#%b*jo%d$1a17v3fn0uze7*_jh^$&=t(_j0bb*21syr(w^&j'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DJANGO_DEBUG', default='1') == '1'
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
-ALLOWED_HOSTS.extend(
-    os.getenv('ALLOWED_HOSTS', default='').split(',')
-)
-ALLOWED_HOSTS = list(filter(lambda x: x != '', ALLOWED_HOSTS))
+ALLOWED_HOSTS = env('ALLOWED_HOSTS')
 
 
 # Application definition
@@ -83,14 +99,7 @@ WSGI_APPLICATION = 'pes_league.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': os.getenv('DB_ENGINE', default='django.db.backends.sqlite3'),
-        'NAME': os.getenv('DB_NAME', default=BASE_DIR / 'db.sqlite3'),
-        'HOST': os.getenv('DB_HOST', default=''),
-        'PORT': os.getenv('DB_PORT', default=''),
-        'USER': os.getenv('DB_USER', default=''),
-        'PASSWORD': os.getenv('DB_PASSWORD', default=''),
-    }
+    'default': env.db()
 }
 
 
@@ -139,10 +148,10 @@ STATICFILES_DIRS = [
     BASE_DIR / 'pes_league' / 'static',
 ]
 
-CSRF_COOKIE_DOMAIN = os.getenv('CSRF_COOKIE_DOMAIN', default=None)
-CSRF_COOKIE_NAME = os.getenv('CSRF_COOKIE_NAME', default='csrftoken')
+CSRF_COOKIE_DOMAIN = env('CSRF_COOKIE_DOMAIN')
+CSRF_COOKIE_NAME = env('CSRF_COOKIE_NAME')
 
-SESSION_COOKIE_NAME = os.getenv('SESSION_COOKIE_NAME', default='sessionid')
+SESSION_COOKIE_NAME = env('SESSION_COOKIE_NAME')
 
 GRAPHENE = {
     'SCHEMA': 'season.schema.schema',
