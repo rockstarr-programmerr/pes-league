@@ -31,6 +31,7 @@ env = environ.Env(
     CSRF_COOKIE_DOMAIN=(str, None),
     CSRF_COOKIE_NAME=(str, 'csrftoken'),
     SESSION_COOKIE_NAME=(str, 'sessionid'),
+    SECURE_PROXY_SSL_HEADER=(tuple, None),
 )
 # reading .env file
 env_file = str(BASE_DIR / '.env')
@@ -150,6 +151,7 @@ STATICFILES_DIRS = [
 
 CSRF_COOKIE_DOMAIN = env('CSRF_COOKIE_DOMAIN')
 CSRF_COOKIE_NAME = env('CSRF_COOKIE_NAME')
+SECURE_PROXY_SSL_HEADER = env('SECURE_PROXY_SSL_HEADER')
 
 SESSION_COOKIE_NAME = env('SESSION_COOKIE_NAME')
 
