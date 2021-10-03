@@ -4,3 +4,4 @@ staticfiles/
 .venv
 .env
 *.pid
+*.log
