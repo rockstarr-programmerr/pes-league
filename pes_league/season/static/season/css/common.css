@@ -96,6 +96,7 @@ ul li {
 .peslogo {
   /* width: 50px;
     margin-top: 14px; */
+  height: 180px;
   cursor: pointer;
   max-width: 100%;
 }
