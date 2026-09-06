@@ -132,8 +132,8 @@ class Round(models.Model):
 class Game(models.Model):
     home_team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='home_games', verbose_name='đội nhà')
     away_team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='away_games', verbose_name='đội khách')
-    home_team_score = models.PositiveSmallIntegerField(null=True, blank=True, verbose_name='bàn thắng đội nhà')
-    away_team_score = models.PositiveSmallIntegerField(null=True, blank=True, verbose_name='bàn thắng đội khách')
+    home_team_score = models.PositiveIntegerField(null=True, blank=True, verbose_name='bàn thắng đội nhà')
+    away_team_score = models.PositiveIntegerField(null=True, blank=True, verbose_name='bàn thắng đội khách')
     season = models.ForeignKey(Season, on_delete=models.CASCADE, null=True, related_name='games', verbose_name='mùa giải')
     round = models.ForeignKey(Round, on_delete=models.CASCADE, null=True, related_name='games', verbose_name='vòng đấu')
     time = models.DateTimeField('ngày giờ thi đấu', null=True, blank=True, default=timezone.now)
