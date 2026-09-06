@@ -150,21 +150,3 @@ class SeasonCreateForm(forms.ModelForm):
                 games.append(new_game)
 
         Game.objects.bulk_create(games)
-
-
-#######################################
-# NOTE: Các form dưới đây chỉ dành cho demo Graphql, hiện tại chưa dùng
-#######################################
-
-class TeamForm(forms.ModelForm):
-    class Meta:
-        model = Team
-        fields = '__all__'
-
-
-class SeasonForm(forms.ModelForm):
-    class Meta:
-        model = Season
-        fields = '__all__'
-
-#######################################

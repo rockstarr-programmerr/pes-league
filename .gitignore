@@ -5,3 +5,6 @@ staticfiles/
 .env
 *.pid
 *.log
+
+# uv
+.venv/

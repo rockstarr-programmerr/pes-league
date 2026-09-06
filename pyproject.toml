@@ -1,0 +1,31 @@
+[project]
+name = "pes-league"
+version = "1.0.0"
+description = "PES league standings"
+requires-python = ">=3.14"
+dependencies = [
+    "django>=5.2,<6",
+    "django-environ>=0.14",
+    "gunicorn>=23",
+    "psycopg[binary]>=3.2",
+    "python-dateutil>=2.9",
+    "sentry-sdk[django]>=2",
+]
+
+[dependency-groups]
+dev = [
+    "faker>=30",
+    "model-bakery>=1.20",
+    "pytest>=8",
+    "pytest-django>=4.11",
+    "ruff>=0.12",
+]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "pes_league.settings"
+pythonpath = ["pes_league"]
+python_files = ["tests.py", "test_*.py"]
+
+[tool.ruff]
+line-length = 120
+extend-exclude = ["migrations"]

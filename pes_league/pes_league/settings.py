@@ -14,6 +14,7 @@ from email.utils import getaddresses
 from pathlib import Path
 
 import environ
+import sentry_sdk
 
 from .logger.config import logging_config
 
@@ -24,6 +25,7 @@ env = environ.Env(
     SECRET_KEY=(str, 'nothingtoseehere'),
     DEBUG=(bool, True),
     ALLOWED_HOSTS=(list, []),
+    SENTRY_DSN=(str, ''),
 
     # If you want to use unsafe characters in DATABASE_URL, you must escape it first using urllib.parse.quote
     # Example: if your db password is xyz#$%abc, then your DATABASE_URL should be:
@@ -52,6 +54,9 @@ DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = env('ALLOWED_HOSTS')
 
+if env('SENTRY_DSN'):
+    sentry_sdk.init(dsn=env('SENTRY_DSN'), send_default_pii=True)
+
 
 # Application definition
 
@@ -63,7 +68,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'season.apps.SeasonConfig',
-    'graphene_django',
 ]
 
 MIDDLEWARE = [
@@ -135,8 +139,6 @@ TIME_ZONE = 'Asia/Ho_Chi_Minh'
 
 USE_I18N = True
 
-USE_L10N = False
-
 USE_TZ = True
 
 DATET_FORMAT = 'd/m/Y'
@@ -157,10 +159,6 @@ CSRF_COOKIE_NAME = env('CSRF_COOKIE_NAME')
 SECURE_PROXY_SSL_HEADER = env('SECURE_PROXY_SSL_HEADER')
 
 SESSION_COOKIE_NAME = env('SESSION_COOKIE_NAME')
-
-GRAPHENE = {
-    'SCHEMA': 'season.schema.schema',
-}
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
